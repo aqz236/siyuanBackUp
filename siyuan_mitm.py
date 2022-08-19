@@ -1,8 +1,12 @@
 from mitmproxy.http import flow
-import socket, fcntl, struct, subprocess
+import os, socket, fcntl, struct, subprocess
 
 port=6807
 targetApi="/api/self/backup/alipan"
+nic="eth0"
+if nic not in os.listdir('/sys/class/net/'):
+    print(os.listdir('/sys/class/net/'))
+    print("你的网卡名可能有错误，需要手动进行修改\n同时/etc/sysconfig/iptables中添加的两条自定义规则也要改")
 
 def get_ip_address(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -11,5 +15,5 @@ def get_ip_address(ifname):
 
 
 def request(flow: flow):
-    if f"http://{get_ip_address('eth0')}:{port}{targetApi}" in flow.request.url:
+    if f"http://{get_ip_address(nic)}:{port}{targetApi}" in flow.request.url:
         subprocess.Popen("sh backup.sh", shell=True)
