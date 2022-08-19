@@ -376,7 +376,7 @@ if("barBackupSelf"===t.id){(0,c.fetchPost)("/api/self/backup/alipan",{}),e.stopP
 
 ## 许可
 
-`siyuanShell`是在GPL3.0 许可下许可的开源软件。
+`siyuanBackUp`是在GPL3.0 许可下许可的开源软件。
 
 ## 免责声明
 
